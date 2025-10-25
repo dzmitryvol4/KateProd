@@ -7,13 +7,16 @@ import { ProjectsComponent } from './components/projects.component';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainPageComponent />} />
-        <Route path="/projects" element={<ProjectsComponent />} />
-        {/* <Route path="/about" element={<About />} /> */}
-      </Routes>
-    </Router>
+    <div className="App">
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainPageComponent />} />
+          <Route path="/projects" element={<ProjectsComponent />} />
+
+          {/* <Route path="/about" element={<About />} /> */}
+        </Routes>
+      </Router>
+    </div>
   );
 }
 

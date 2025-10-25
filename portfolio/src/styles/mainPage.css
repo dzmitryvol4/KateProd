@@ -1,0 +1,25 @@
+.background{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;             
+    align-items: center;
+}
+
+.Box{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;             
+    align-items: center;
+    height: 90vh;
+}
+
+.Card{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    max-width: 600px;
+    max-height: 600px;
+}

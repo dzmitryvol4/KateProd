@@ -1,0 +1,18 @@
+.menuContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    width: 100%;
+    gap: 30%;
+    
+}
+
+.menuItem{
+    /* padding: 10px; */
+    /* background-color: #ff4949; */
+    border-radius: 5px;
+    cursor: pointer;
+}
