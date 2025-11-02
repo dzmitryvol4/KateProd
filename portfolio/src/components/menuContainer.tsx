@@ -1,22 +1,27 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // импортим хук для навигации
 import "../styles/menuContainer.css";
-import { Link } from "react-router-dom";
 
-export class MenuContainer extends React.Component {
-    render(): React.ReactNode {
-        return (
-            <div className="menuContainer">
-                <div className="menuItem">
-                    <h2><Link to="/">Menu</Link></h2>
-                </div>
-                <div className="menuItem">
-                    <h2><Link to="/about">About me</Link></h2>
-                </div>
-                <div className="menuItem">
-                    <h2><Link to="/projects">Projects</Link></h2>
-                </div>
-            </div>
-            
-        );
-    }
+export const MenuContainer: React.FunctionComponent = () => {
+  const navigate = useNavigate(); // получаем доступ к навигационному объекту
+
+  return (
+    <div className="menuContainer">
+      <div className="menuItem">
+        <button onClick={() => navigate("/")}>
+          <h2>Menu</h2>
+        </button>
+      </div>
+      <div className="menuItem">
+        <button onClick={() => navigate("/about")}>
+          <h2>About Me</h2>
+        </button>
+      </div>
+      <div className="menuItem">
+        <button onClick={() => navigate("/projects")}>
+          <h2>Projects</h2>
+        </button>
+      </div>
+    </div>
+  )
 }

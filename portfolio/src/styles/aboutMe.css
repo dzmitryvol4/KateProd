@@ -1,0 +1,12 @@
+.bigCell{
+    background-color: #ff4949;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.Cell{
+    background-color: aliceblue;
+    width: auto;
+    height: 50%;
+}
