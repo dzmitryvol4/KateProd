@@ -5,9 +5,9 @@ import { MenuContainer } from './menuContainer';
 import '../styles/mainPage.css'
 
 
-export class MainPageComponent extends Component {
-    render(): any{
-        return (
+
+const MainPageComponent: React.FC = () => {
+  return (
             <div className="background">
             <Box className='Box'>
                 <Card className='Card'>
@@ -19,6 +19,8 @@ export class MainPageComponent extends Component {
             </Box>
         <MenuContainer></MenuContainer>
         </div>
-        )
-    }
+        );
 }
+
+
+export default MainPageComponent;

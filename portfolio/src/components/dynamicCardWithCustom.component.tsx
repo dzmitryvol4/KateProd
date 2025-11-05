@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/dynamicCardWithCustom.css';
 
 // Импортируем изображение
@@ -13,6 +14,11 @@ interface CardItem {
   custom?: false;
   imageWrapperStyle?: React.CSSProperties;
   imageStyle?: React.CSSProperties;
+  id?: string;
+}
+
+interface Props {
+  onImageClick?: (id: string) => void;
 }
 
 interface CustomItem {
@@ -32,7 +38,7 @@ interface RowConfig {
   items: LayoutItem[];
 }
 
-export class DynamicCardWithCustom extends Component {
+export class DynamicCardWithCustom extends Component<Props> {
   private layout: RowConfig[] = [
 //       {
 //         cols: 1,
@@ -49,6 +55,7 @@ export class DynamicCardWithCustom extends Component {
           cols: 2,
           items: [
             {
+              id: '1',
               image: albusHead,
               imageWrapperStyle: { boxShadow: '0 4px 8px rgba(0,0,0,0.2)'},
               imageStyle: { minWidth: '450px' },
@@ -60,6 +67,19 @@ export class DynamicCardWithCustom extends Component {
               description: 'Упаковка для крафтового пива ALBUS вдохновлена весной и одним из её характерных ритуалов — побелкой деревьев. С наступлением тепла нижнюю часть стволов деревьев покрывают белой краской, защищая их от солнечных ожогов, перепадов температур и вредителей. Текстура дерева помогает передать натуральность и чистоту продукта.',
               style: { padding: '20px', margin: 'auto' },
             },
+        {
+                      id: '1',
+                      image: albusHead,
+                      imageWrapperStyle: { boxShadow: '0 4px 8px rgba(0,0,0,0.2)'},
+                      imageStyle: { minWidth: '450px' },
+                    },
+                    {
+                      custom: true,
+                      position: 'left',
+                      title: 'Упаковка для крафтового пива ALBUS',
+                      description: 'Упаковка для крафтового пива ALBUS вдохновлена весной и одним из её характерных ритуалов — побелкой деревьев. С наступлением тепла нижнюю часть стволов деревьев покрывают белой краской, защищая их от солнечных ожогов, перепадов температур и вредителей. Текстура дерева помогает передать натуральность и чистоту продукта.',
+                      style: { padding: '20px', margin: 'auto' },
+                    },
           ],
         },
         {
@@ -73,6 +93,7 @@ export class DynamicCardWithCustom extends Component {
               style: { padding: '20px' , margin: 'auto' },
             },
             {
+              id: '2',
               image: fontHead,
               imageWrapperStyle: { boxShadow: '0 4px 8px rgba(0,0,0,0.2)'},
               imageStyle: { minWidth: '450px' },
@@ -83,6 +104,7 @@ export class DynamicCardWithCustom extends Component {
           cols: 2,
           items: [
             {
+              id: '3',
               image: pankyHead,
               imageWrapperStyle: { boxShadow: '0 4px 8px rgba(0,0,0,0.2)'},
               imageStyle: { minWidth: '450px' },
@@ -147,6 +169,11 @@ export class DynamicCardWithCustom extends Component {
                       style={{
                         textAlign: 'center',
                       }}
+                      onClick={(e) => {
+                            e.stopPropagation();
+                            console.log('Клик сработал! ID:', item.id); // 🔥 Добавь это
+                            item.id && this.props.onImageClick?.(item.id);
+                          }}
                     >
                       {item.image && (
                         <div
@@ -186,3 +213,5 @@ export class DynamicCardWithCustom extends Component {
     );
   }
 }
+
+export default DynamicCardWithCustom;
