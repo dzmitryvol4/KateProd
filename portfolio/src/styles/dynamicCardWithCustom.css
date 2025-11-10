@@ -2,3 +2,28 @@
     display: flex;
     justify-content: center;
 }
+
+/* Для мобильных — переопределяем порядок через CSS */
+@media (max-width: 768px) {
+    .card-row {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    /* Пример: задаём порядок через data-атрибуты */
+    .card-row [data-mobile-order="1"] { order: 1; }
+    .card-row [data-mobile-order="2"] { order: 2; }
+    .card-row [data-mobile-order="3"] { order: 3; }
+    .card-row [data-mobile-order="4"] { order: 4; }
+    .card-row [data-mobile-order="5"] { order: 5; }
+    .card-row [data-mobile-order="6"] { order: 6; }
+
+    /* Убираем grid и делаем flex */
+    .CustomBlock,
+    .CardItem {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        justify-self: center !important;
+    }
+}

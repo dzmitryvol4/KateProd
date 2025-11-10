@@ -2,14 +2,13 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 
 // ✅ Все пути начинаются с ./components — внутри src/
-import {ProjectPage} from './components/projectPage.component';
-import  MainPageComponent  from './components/mainPage.component';
-import { AboutMeComponent } from './components/aboutMe.component';
-import { ProjectsComponent } from './components/projects.component';
-import { DynamicCardWithCustom } from './components/dynamicCardWithCustom.component';
+import ProjectPage from './components/projectPage.component';
+import MainPageComponent  from './components/mainPage.component';
+import AboutMeComponent  from './components/aboutMe.component';
+import ProjectsComponent from './components/projects.component';
+import DynamicCardWithCustom from './components/dynamicCardWithCustom.component';
 
 // Обёртка для передачи navigate
-
 
 const App = () => {
   return (

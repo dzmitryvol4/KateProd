@@ -1,12 +1,12 @@
-import { Component } from 'react';
-import { DynamicCardWithCustom } from './dynamicCardWithCustom.component';
+import React from 'react';
+import DynamicCardWithCustom  from './dynamicCardWithCustom.component';
 
-export class ProjectsComponent extends Component {
-  render(): any {
-    return (
-      <div>
-      <DynamicCardWithCustom></DynamicCardWithCustom>
-      </div>
-    );
-  }
-}
+const ProjectsComponent = () => {
+  return (
+    <div>
+      <DynamicCardWithCustom />
+    </div>
+  );
+};
+
+export default ProjectsComponent;
