@@ -2,29 +2,27 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { projects } from '../interfaces/projects';
 
-// Интерфейс для блоков контента
 interface ContentBlock {
   type: 'text' | 'image';
-  content: string; // для text — текст, для image — URL изображения
-  position: 'left' | 'right' | 'full'; // расположение
-  size?: 'small' | 'medium' | 'large'; // размер изображения
-  textAlignment?: 'left' | 'center' | 'right'; // выравнивание текста
+  content: string;
+  position: 'left' | 'right' | 'full' | 'half-left' | 'half-right';
+  size?: 'small' | 'medium' | 'large';
+  textAlignment?: 'left' | 'center' | 'right';
 }
 
-// Тип проекта с блочной структурой
-interface Project {
+interface ProjectWithBlocks {
   id: string;
   title: string;
   year: string;
   category: string;
-  contentBlocks: ContentBlock[];
+  content: string;
+  contentBlocks?: ContentBlock[];
 }
 
-// Функциональный компонент
 const ProjectPage = () => {
   const { id } = useParams<{ id: string }>();
 
-  const project = projects.find((p) => p.id === id) as Project | undefined;
+  const project = projects.find((p) => p.id === id) as ProjectWithBlocks | undefined;
 
   if (!project) {
     return (
@@ -38,14 +36,7 @@ const ProjectPage = () => {
   }
 
   return (
-    <div
-      style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '40px 20px',
-        fontFamily: 'Arial, sans-serif',
-      }}
-    >
+    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 20px' }}>
       <button
         onClick={() => window.history.back()}
         style={{
@@ -66,63 +57,133 @@ const ProjectPage = () => {
         <strong>{project.year}</strong> · {project.category}
       </p>
 
-      {/* Рендерим блоки */}
-      {project.contentBlocks.map((block, index) => {
-        if (block.type === 'image') {
-          return (
-            <div
-              key={index}
-              style={{
-                display: 'flex',
-                justifyContent:
-                  block.position === 'left'
-                    ? 'flex-start'
-                    : block.position === 'right'
-                    ? 'flex-end'
-                    : 'center',
-                marginBottom: '30px',
-              }}
-            >
-              <img
-                src={block.content}
-                alt={`Изображение проекта ${project.title}`}
-                loading="lazy"
+      {/* Контейнер для группировки блоков */}
+      <div>
+        {project.contentBlocks?.map((block, index) => {
+          // Обработка пары "half-left" и "half-right" — оборачиваем в строку
+          if (block.position === 'half-left') {
+            const nextBlock = project.contentBlocks?.[index + 1];
+
+            if (nextBlock?.position === 'half-right') {
+              return (
+                <div
+                  key={index}
+                  style={{
+                    display: 'flex',
+                    gap: '20px',
+                    marginBottom: '30px',
+                    width: '100%',
+                  }}
+                >
+                  {/* Левый блок */}
+                  <div style={{ flex: '1', textAlign: block.textAlignment || 'left' }}>
+                    {block.type === 'text' && <p>{block.content}</p>}
+                    {block.type === 'image' && (
+                      <img
+                        src={block.content}
+                        alt="left"
+                        style={{
+                          width: '100%',
+                          maxHeight: '500px',
+                          objectFit: 'cover',
+                          borderRadius: '12px',
+                        }}
+                      />
+                    )}
+                  </div>
+
+                  {/* Правый блок */}
+                  <div style={{ flex: '1', textAlign: nextBlock.textAlignment || 'left' }}>
+                    {nextBlock.type === 'text' && <p>{nextBlock.content}</p>}
+                    {nextBlock.type === 'image' && (
+                      <img
+                        src={nextBlock.content}
+                        alt="right"
+                        style={{
+                          width: '100%',
+                          maxHeight: '500px',
+                          objectFit: 'cover',
+                          borderRadius: '12px',
+                        }}
+                      />
+                    )}
+                  </div>
+                </div>
+              );
+            }
+          }
+
+          // Пропускаем "half-right" — он уже обработан выше
+          if (block.position === 'half-right') {
+            return null;
+          }
+
+          // Обычные блоки
+          if (block.type === 'image') {
+            return (
+              <div
+                key={index}
                 style={{
-                  width:
-                    block.size === 'small'
-                      ? '300px'
-                      : block.size === 'large'
-                      ? '100%'
-                      : '600px',
-                  maxHeight: '600px',
-                  objectFit: 'cover',
-                  borderRadius: '12px',
+                  display: 'flex',
+                  justifyContent:
+                    block.position === 'left'
+                      ? 'flex-start'
+                      : block.position === 'right'
+                      ? 'flex-end'
+                      : 'center',
+                  marginBottom: '30px',
                 }}
-              />
-            </div>
-          );
-        }
+              >
+                <img
+                  src={block.content}
+                  alt={`Изображение ${index}`}
+                  loading="lazy"
+                  style={{
+                    width:
+                      block.size === 'small'
+                        ? '300px'
+                        : block.size === 'large'
+                        ? '100%'
+                        : '600px',
+                    maxHeight: '600px',
+                    objectFit: 'cover',
+                    borderRadius: '12px',
+                  }}
+                  onError={(e) => {
+                    console.error('Изображение не загружено:', block.content);
+                  }}
+                />
+              </div>
+            );
+          }
 
-        if (block.type === 'text') {
-          return (
-            <div
-              key={index}
-              style={{
-                textAlign: block.textAlignment || 'left',
-                marginBottom: '30px',
-                lineHeight: '1.8',
-                fontSize: '16px',
-                maxWidth: block.position === 'full' ? '100%' : '800px',
-                margin: '0 auto 30px',
-              }}
-            >
-              <p>{block.content}</p>
-            </div>
-          );
-        }
+          if (block.type === 'text') {
+            return (
+              <div
+                key={index}
+                style={{
+                  textAlign: block.textAlignment || 'left',
+                  marginBottom: '30px',
+                  lineHeight: '1.8',
+                  fontSize: '16px',
+                  maxWidth: block.position === 'full' ? '100%' : '800px',
+                  margin: '0 auto',
+                }}
+              >
+                <p>{block.content}</p>
+              </div>
+            );
+          }
 
-        return null;
-      })}
+          return null;
+        })}
+      </div>
+
+      {!project.contentBlocks && project.content && (
+        <div style={{ fontSize: '16px', lineHeight: '1.8' }}>
+          <p>{project.content}</p>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import React from 'react';
 import '../styles/aboutMe.css';
-import { Grid, Cell } from './dynamicGrid.component';
 
 // Интерфейс для данных ячейки
 interface CellData {
@@ -34,14 +33,12 @@ const AboutMeComponent = () => {
     <div>
       <h1>about me</h1>
       <div className="app">
-        <Grid cols={4} rows={3} gutter={20}>
           {data.map((item, index) => {
             if (item === null) {
               return null;
             }
 
             return (
-              <Cell key={index} colSpan={item.colSpan} rowSpan={item.rowSpan}>
                 <div className="Cell">
                   {item.image && (
                     <img
@@ -57,10 +54,8 @@ const AboutMeComponent = () => {
                   )}
                   <h3 style={{ margin: '10px 0 0', fontSize: '16px' }}>{item.title}</h3>
                 </div>
-              </Cell>
             );
           })}
-        </Grid>
       </div>
     </div>
   );

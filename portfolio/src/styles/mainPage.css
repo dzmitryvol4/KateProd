@@ -13,11 +13,12 @@
     flex-direction: row;
     flex-wrap: wrap;             
     align-items: center;
-    height: 90vh;
+    height: auto;
+    width: 100%;
 }
 
 .Card{
-    width: 90%;
+    width: 600px;
     display: flex;
     justify-content: center;
     max-width: 600px;

@@ -1,0 +1,28 @@
+.menu-category-container {
+    display: flex;
+    flexDirection: row-reverse;
+    justifyContent: space-between;
+}
+
+.menu-category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-category-item {
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.menu-category-item:hover {
+    color: #007acc;
+}
+
+.menu-category-preview {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}

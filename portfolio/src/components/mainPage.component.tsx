@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import { MenuContainer } from './menuContainer';
+import MenuCategoryListComponent from './menuCategoryList.component';
 import '../styles/mainPage.css';
 
 // Уже функциональный компонент — всё правильно!
@@ -13,9 +14,8 @@ const MainPageComponent: React.FC = () => {
             <Typography variant="h4" gutterBottom>
               Main Page
             </Typography>
-            <Typography variant="h4" gutterBottom>
+            <MenuCategoryListComponent/>
               Тут скоро будет приколы
-            </Typography>
           </CardContent>
         </Card>
       </Box>
